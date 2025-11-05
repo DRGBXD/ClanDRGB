@@ -8,12 +8,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
     <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
-    <link rel="icon" href="https://i.imgur.com/6Yk3V3g.png">
+    <link rel="icon" href="dragon.ico">
     <style>
         :root {
             --primary: #dc143c;
             --dark: #111;
             --light: #fff;
+            --neon-blue: #00bfff;
+            --neon-red: #dc143c;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -63,16 +65,38 @@
         .navbar .menu li a { color: white; font-size: 18px; font-weight: 500; transition: 0.3s; }
         .navbar .menu li a:hover { color: var(--primary); }
         .menu-btn { color: white; font-size: 23px; cursor: pointer; display: none; }
-
         /* Home */
         .home { min-height: 100vh; display: flex; align-items: center; }
         .home .home-content .text-1 { font-size: 27px; }
-        .home .home-content .text-2 { font-size: 75px; font-weight: 600; margin: 10px 0; }
-        .home .home-content .text-3 { font-size: 40px; margin: 5px 0; }
+        .home .home-content .text-2 { 
+            font-size: 75px; 
+            font-weight: 600; 
+            margin: 10px 0;
+            background: linear-gradient(90deg, #fff, var(--primary), var(--neon-blue), #fff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            background-size: 300% 300%;
+            animation: gradient 8s ease infinite;
+        }
+        .home .home-content .text-3 { font-size: 40px; margin: 5px 0; text-align: center; }
         .home .home-content .text-3 span { color: var(--primary); font-weight: 500; }
-
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        @keyframes pulse {
+            0% { text-shadow: 0 0 10px var(--neon-red), 0 0 20px var(--neon-red); }
+            50% { text-shadow: 0 0 20px var(--neon-red), 0 0 30px var(--neon-red), 0 0 40px var(--neon-red); }
+            100% { text-shadow: 0 0 10px var(--neon-red), 0 0 20px var(--neon-red); }
+        }
         /* Dropdown */
-        .dropdown { position: relative; display: inline-block; margin-top: 30px; }
+        .dropdown { position: relative; display: inline-block; margin-top: 30px; text-align: center; }
         .dropbtn {
             background: var(--primary);
             color: white;
@@ -92,6 +116,8 @@
             z-index: 1;
             border-radius: 6px;
             overflow: hidden;
+            left: 50%;
+            transform: translateX(-50%);
         }
         .dropdown-content a {
             color: var(--dark);
@@ -103,11 +129,10 @@
         .dropdown-content a:hover { background: var(--primary); color: white; }
         .dropdown:hover .dropdown-content { display: block; }
         .dropdown:hover .dropbtn { background: transparent; color: var(--primary); border: 2px solid var(--primary); }
-
         /* Features */
-        .features, .clients, .stats, .contributors { padding: 100px 0; }
+        .features, .clients, .stats, .contributors, .sponsor { padding: 100px 0; }
         .title {
-            text-align:  center;
+            text-align: center;
             font-size: 40px;
             font-weight: 600;
             margin-bottom: 60px;
@@ -139,13 +164,13 @@
         }
         .features .card i { font-size: 50px; color: var(--primary); margin-bottom: 20px; }
         .features .card .text { font-size: 22px; font-weight: 600; margin-bottom: 15px; }
-
         /* Clients */
         .client { background: rgba(255,255,255,0.03); padding: 25px; border-radius: 10px; margin: 20px 0; border-left: 4px solid var(--primary); }
         .client h3 { color: var(--primary); }
         .client ul { margin: 15px 0; padding-left: 20px; }
+        .client li { margin-bottom: 8px; }
         .client a { color: #4CAF50; text-decoration: underline; }
-
+        .client .addon-list { font-style: italic; color: #aaa; }
         /* Stats & Contributors */
         .stats .stats-content, .contributors .carousel { display: flex; justify-content: center; flex-wrap: wrap; gap: 30px; }
         .stats .card, .contributors .cardd {
@@ -157,7 +182,31 @@
             border: 1px solid rgba(220,20,60,0.2);
         }
         .stats .card i { font-size: 40px; color: var(--primary); margin-bottom: 15px; }
-
+        /* Sponsor Section */
+        .sponsor {
+            background: linear-gradient(135deg, rgba(17,17,17,0.9), rgba(220,20,60,0.1));
+            text-align: center;
+        }
+        .sponsor .title { color: var(--primary); }
+        .sponsor-content { max-width: 800px; margin: 0 auto; }
+        .world-icon { font-size: 70px; margin-bottom: 20px; color: var(--primary); }
+        .ip-box {
+            font-size: 36px; 
+            font-weight: 800; 
+            color: var(--neon-red); 
+            text-shadow: 0 0 10px var(--neon-red), 0 0 20px var(--neon-red); 
+            cursor: pointer; 
+            animation: pulse 2s infinite; 
+            letter-spacing: 2px;
+            user-select: none;
+            display: inline-block;
+            padding: 12px 24px;
+            border: 2px solid var(--neon-red);
+            border-radius: 12px;
+            background: rgba(220, 20, 60, 0.1);
+            transition: transform 0.2s;
+        }
+        .ip-box:hover { transform: scale(1.05); }
         /* Footer */
         footer {
             background: #000;
@@ -166,7 +215,6 @@
             font-size: 14px;
         }
         footer a { color: var(--primary); text-decoration: none; }
-
         /* Responsive */
         @media (max-width: 991px) {
             .max-width { padding: 0 50px; }
@@ -175,16 +223,19 @@
             .navbar .menu.active { left: 0; }
             .navbar .menu li { display: block; margin: 30px 0; }
         }
+        @media (max-width: 600px) {
+            .home-content img { width: 70px; }
+            .home .text-2 { font-size: 55px !important; }
+            .home .text-1 { font-size: 22px; }
+            .ip-box { font-size: 24px; padding: 10px 16px; }
+        }
     </style>
 </head>
 <body>
-
     <!-- Particles Background -->
     <div id="particles-js"></div>
-
     <!-- Scroll to Top -->
     <div class="scroll-up-btn"><i class="fas fa-angle-up"></i></div>
-
     <!-- Navbar -->
     <nav class="navbar">
         <div class="max-width">
@@ -200,16 +251,22 @@
             <div class="menu-btn"><i class="fas fa-bars"></i></div>
         </div>
     </nav>
-
     <!-- Home -->
     <section class="home" id="home">
         <div class="max-width">
-            <div class="home-content">
-                <div class="text-1">Hola, somos</div>
-                <div class="text-2">DRGB Clan</div>
-                <div class="text-3">Y somos <span class="typing"></span></div>
+            <div class="home-content" data-aos="fade-up">
+                <div style="display: flex; align-items: center; gap: 20px; margin-bottom: 20px; flex-wrap: wrap; justify-content: center;">
+                    <img src="dragon.png" alt="DRGB Dragon" style="width: 90px; height: auto; filter: drop-shadow(0 0 15px var(--neon-blue)); animation: float 3s ease-in-out infinite;">
+                    <div>
+                        <div class="text-1" style="font-size: 28px; margin: 0;">Hola, somos</div>
+                        <div class="text-2" style="font-size: 78px; margin: 5px 0; line-height: 1;">DRGB Clan</div>
+                    </div>
+                </div>
+                <div class="text-3" style="text-align: center; margin-top: 10px;">
+                    Y somos <span class="typing"></span>
+                </div>
             </div>
-            <div class="dropdown">
+            <div class="dropdown" data-aos="fade-up" data-aos-delay="300">
                 <button class="dropbtn">Únete Aquí</button>
                 <div class="dropdown-content">
                     <a href="https://discord.gg/drgb">INVITA AL CLAN</a>
@@ -220,7 +277,6 @@
             </div>
         </div>
     </section>
-
     <!-- Features -->
     <section class="features" id="features">
         <div class="max-width">
@@ -271,7 +327,6 @@
             </div>
         </div>
     </section>
-
     <!-- Clients -->
     <section class="clients" id="clients">
         <div class="max-width">
@@ -280,45 +335,44 @@
                 Riesgo en servidores protegidos (Hypixel, Mineplex): 70-90% detección. Usa alts + VPN.<br>
                 En anarchy: casi 0% riesgo. Enseñamos bypass en Discord.
             </p>
-
             <div class="client" data-aos="fade-right">
                 <h3>Meteor Client (Gratis)</h3>
-                <p><strong>Versión:</strong> 0.5.6 (Fabric/Quilt) | <strong>Addons:</strong> Rejects, TrollPlus, Baritone+</p>
-                <p><strong>Riesgo:</strong> Alto en protegidos | <strong>Página:</strong> <a href="https://meteorclient.com">meteorclient.com</a> | <strong>Discord:</strong> <a href="https://discord.gg/meteor">discord.gg/meteor</a></p>
+                <p><strong>Versión:</strong> 0.5.6 (Fabric/Quilt) | <strong>Riesgo:</strong> Alto en protegidos</p>
+                <p><strong>Página:</strong> <a href="https://meteorclient.com">meteorclient.com</a> | <strong>Discord:</strong> <a href="https://discord.gg/meteor">discord.gg/meteor</a></p>
+                <p class="addon-list"><strong>TODOS LOS ADDONS:</strong> Rejects, TrollPlus, Baritone+, Meteor-Rejects-Edition, Highway Builder, Auto Farm, Infinite Aura, Crystal Optimizer, Packet Fly Bypass, No Fall Damage Plus, HighwayTools, ElytraFly Boost, Entity Control, y +50 addons comunitarios.</p>
             </div>
-
             <div class="client" data-aos="fade-left">
                 <h3>Wurst Client (Gratis)</h3>
-                <p><strong>Versión:</strong> 7.38.1 (Fabric) | <strong>Addons:</strong> ClickGUI +300 hacks</p>
-                <p><strong>Riesgo:</strong> Medio | <strong>Página:</strong> <a href="https://wurstclient.net">wurstclient.net</a> | <strong>Discord:</strong> <a href="https://discord.gg/wurst">discord.gg/wurst</a></p>
+                <p><strong>Versión:</strong> 7.38.1 (Fabric) | <strong>Riesgo:</strong> Medio</p>
+                <p><strong>Página:</strong> <a href="https://wurstclient.net">wurstclient.net</a> | <strong>Discord:</strong> <a href="https://discord.gg/wurst">discord.gg/wurst</a></p>
+                <p class="addon-list"><strong>TODOS LOS ADDONS:</strong> ClickGUI, Wurst+, AntiKnockback Plus, Kauri, Orange, MultiHack, X-Ray Opaque, Fullbright Pro, Trajectories Pro, Baritone Integration, Dupe Exploits Pack, AutoTool, ChestESP Advanced, Flight Bypass, y +200 scripts.</p>
             </div>
-
             <div class="client" data-aos="fade-right">
                 <h3>Aristois (Premium $20)</h3>
-                <p><strong>Versión:</strong> 2.8.0 (Forge/Fabric) | <strong>Addons:</strong> Bypasses Hypixel, AutoCrystal Pro</p>
-                <p><strong>Riesgo:</strong> Bajo-Medio | <strong>Página:</strong> <a href="https://aristois.net">aristois.net</a> | <strong>Discord:</strong> <a href="https://discord.gg/aristois">discord.gg/aristois</a></p>
+                <p><strong>Versión:</strong> 2.8.0 (Forge/Fabric) | <strong>Riesgo:</strong> Bajo-Medio</p>
+                <p><strong>Página:</strong> <a href="https://aristois.net">aristois.net</a> | <strong>Discord:</strong> <a href="https://discord.gg/aristois">discord.gg/aristois</a></p>
+                <p class="addon-list"><strong>TODOS LOS ADDONS:</strong> Bypasses Hypixel, AutoCrystal Pro, Hypixel Fly Bypass, AutoTotem Pro, Reach+, Criticals Pro, Velocity Null, Scaffold Pro, ESP Pro, Baritone Aristois, Dupe Pack, Grief Tools, AI Aimbot, Vault Breaker, AutoBuild, Entity Rider, +100 configs.</p>
             </div>
-
             <div class="client" data-aos="fade-left">
                 <h3>LiquidBounce (Gratis)</h3>
-                <p><strong>Versión:</strong> b72 (Fabric) | <strong>Addons:</strong> Lua Scripts, BouncePlus</p>
-                <p><strong>Riesgo:</strong> Alto | <strong>Página:</strong> <a href="https://liquidbounce.net">liquidbounce.net</a> | <strong>Discord:</strong> <a href="https://discord.gg/liquidbounce">discord.gg/liquidbounce</a></p>
+                <p><strong>Versión:</strong> b72 (Fabric) | <strong>Riesgo:</strong> Alto</p>
+                <p><strong>Página:</strong> <a href="https://liquidbounce.net">liquidbounce.net</a> | <strong>Discord:</strong> <a href="https://discord.gg/liquidbounce">discord.gg/liquidbounce</a></p>
+                <p class="addon-list"><strong>TODOS LOS ADDONS:</strong> Lua Scripts, BouncePlus, LiquidScript (+500 scripts), NoFall Lua, Speed NCP Bypass, Scaffold Lua, ESP Shader, XRay Opaque, Baritone Lua Bridge, Dupe Scripts, TrollScript, Parkour Bot, Infinite Chat, AutoReply.</p>
             </div>
-
             <div class="client" data-aos="fade-right">
                 <h3>Future Client (Premium $25)</h3>
-                <p><strong>Versión:</strong> 2.0 (Fabric) | <strong>Addons:</strong> Vault Solver, AI Aimbot</p>
-                <p><strong>Riesgo:</strong> Muy Bajo | <strong>Página:</strong> <a href="https://futureclient.net">futureclient.net</a> | <strong>Discord:</strong> <a href="https://discord.gg/future">discord.gg/future</a></p>
+                <p><strong>Versión:</strong> 2.0 (Fabric) | <strong>Riesgo:</strong> Muy Bajo</p>
+                <p><strong>Página:</strong> <a href="https://futureclient.net">futureclient.net</a> | <strong>Discord:</strong> <a href="https://discord.gg/future">discord.gg/future</a></p>
+                <p class="addon-list"><strong>TODOS LOS ADDONS:</strong> Vault Solver, AI Aimbot, FutureBypass, AutoCrystal AI, Fly Undetectable, Speed AI, Scaffold AI, ESP Neural, Baritone Future, Dupe AI, Grief AI, Entity AI Control, Infinite Aura, NoRender Lag, HUD Pro, +80 modules AI.</p>
             </div>
-
             <div class="client" data-aos="fade-left">
                 <h3>Impact Client (Híbrido)</h3>
-                <p><strong>Versión:</strong> 5.2 (Fabric) | <strong>Addons:</strong> Impact+, Alt Manager</p>
-                <p><strong>Riesgo:</strong> Medio | <strong>Página:</strong> <a href="https://impactclient.net">impactclient.net</a> | <strong>Discord:</strong> <a href="https://discord.gg/impact">discord.gg/impact</a></p>
+                <p><strong>Versión:</strong> 5.2 (Fabric) | <strong>Riesgo:</strong> Medio</p>
+                <p><strong>Página:</strong> <a href="https://impactclient.net">impactclient.net</a> | <strong>Discord:</strong> <a href="https://discord.gg/impact">discord.gg/impact</a></p>
+                <p class="addon-list"><strong>TODOS LOS ADDONS:</strong> Impact+, Alt Manager, Impact Utility Pack, Killaura Pro, AutoCrystal Impact, Velocity Zero, Criticals Impact, Fly Impact Bypass, ESP Tracers, XRay Impact, Fullbright Gamma, Trajectories Impact, Dupe Pack, Grief Tools, TabGUI, Command Manager, Macro System, +150 hacks.</p>
             </div>
         </div>
     </section>
-
     <!-- Stats -->
     <section class="stats" id="stats">
         <div class="max-width">
@@ -327,13 +381,12 @@
                 <div class="card"><div class="box"><i class="fas fa-users"></i><div class="text">Miembros</div><p>300+</p></div></div>
                 <div class="card"><div class="box"><i class="fas fa-skull"></i><div class="text">Raids</div><p>500+</p></div></div>
                 <div class="card"><div class="box"><i class="fas fa-shield-alt"></i><div class="text">Bans Evitados</div><p>2K+</p></div></div>
-                <div class="card"><div class="box"><i class="fas fa-server"></i><div class="text">Bases</div><p>150+</p></div></div>
+                <div class="card"><div class="box"><i class="fas fa-server"></i><div class="text">Servers Grifeados</div><p>5892</p></div></div>
                 <div class="card"><div class="box"><i class="fas fa-blog"></i><div class="text">Blog Hits</div><p>20M+</p></div></div>
                 <div class="card"><div class="box"><i class="fas fa-discord"></i><div class="text">Discord</div><p>15K+</p></div></div>
             </div>
         </div>
     </section>
-
     <!-- Contributors -->
     <section class="contributors" id="contributors">
         <div class="max-width">
@@ -345,12 +398,34 @@
             </div>
         </div>
     </section>
-
+    <!-- Sponsor RagnarokMC -->
+    <section class="sponsor" id="sponsor">
+        <div class="max-width">
+            <h1 class="title">Recomendado: RagnarokMC</h1>
+            <div class="sponsor-content">
+                <div class="world-icon">World</div>
+                <p style="font-size: 18px; margin-bottom: 30px; color: #ddd;">
+                    Un servidor survival custom con reglas normales, quests, enchants personalizados y una comunidad amigable. ¡Perfecto para jugar con amigos!
+                    <br><strong>Compatible con Minecraft 1.12 - 1.21.10</strong>
+                </p>
+                <div style="text-align: center; margin: 30px 0;">
+                    <span 
+                        onclick="copyIP()" 
+                        class="ip-box"
+                        onmouseover="this.style.transform='scale(1.05)'"
+                        onmouseout="this.style.transform='scale(1)'"
+                    >
+                        ragnarokmc.abyns.com:25574
+                    </span>
+                </div>
+                <p style="font-size: 14px; color: #aaa; margin-top: 10px;">Haz click en el IP para copiarlo</p>
+            </div>
+        </div>
+    </section>
     <!-- Footer -->
     <footer>
         <span>DRGB Clan | <a href="#">Política de Privacidad</a> | <a href="https://discord.gg/drgb">Discord</a> | <a href="#">Donar</a></span>
     </footer>
-
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
@@ -358,7 +433,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-
     <script>
         // Typed.js
         new Typed('.typing', {
@@ -367,7 +441,6 @@
             backSpeed: 60,
             loop: true
         });
-
         // Particles.js
         particlesJS('particles-js', {
             particles: {
@@ -383,10 +456,8 @@
                 events: { onhover: { enable: true, mode: 'repulse' } }
             }
         });
-
         // AOS
         AOS.init({ duration: 1000 });
-
         // Navbar & Scroll
         $(window).scroll(function(){
             if(this.scrollY > 20) $('.navbar').addClass("sticky");
@@ -396,7 +467,6 @@
         });
         $('.scroll-up-btn').click(() => $('html').animate({scrollTop: 0}));
         $('.menu-btn').click(() => $('.navbar .menu').toggleClass("active"));
-
         // Owl Carousel
         $('.carousel').owlCarousel({
             margin: 20,
@@ -405,6 +475,15 @@
             autoplayTimeout: 3000,
             responsive: { 0: { items: 1 }, 600: { items: 2 }, 1000: { items: 3 } }
         });
+        // Copy IP Function
+        function copyIP() {
+            const ip = 'ragnarokmc.abyns.com:25574';
+            navigator.clipboard.writeText(ip).then(() => {
+                alert('¡IP copiada! Únete a RagnarokMC: ' + ip);
+            }).catch(() => {
+                prompt('Copia este IP:', ip);
+            });
+        }
     </script>
 </body>
 </html>
