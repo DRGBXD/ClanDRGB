@@ -1,487 +1,412 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>DRGB Pay | Economía del Clan</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@600&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DRGB Hacks Hub - Crafting Minecraft Hacks, Clan & Tools</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <link rel="icon" href="https://i.imgur.com/6Yk3V3g.png">
     <style>
         :root {
-            --drgb-purple: #8B00FF;
-            --drgb-cyan: #00FFFF;
-            --drgb-dark: #1a1a2e;
-            --drgb-gray: #16213e;
-            --text-light: #e0e0e0;
-            --success: #00ff9d;
-            --error: #ff006a;
-            --admin-red: #ff3366;
+            --primary: #dc143c;
+            --dark: #111;
+            --light: #fff;
         }
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
         body {
-            font-family: 'Rajdhani', sans-serif;
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-            color: var(--text-light);
-            min-height: 100vh;
+            font-family: 'Poppins', sans-serif;
+            background: var(--dark);
+            color: var(--light);
             overflow-x: hidden;
         }
-
-        #particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
-
-        header {
-            background: rgba(10, 10, 30, 0.95);
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        .scroll-up-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--primary);
+            color: white;
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            display: none;
+            z-index: 99;
+            transition: 0.3s;
+        }
+        .scroll-up-btn.show { display: block; }
+        .navbar {
+            position: fixed;
+            width: 100%;
+            padding: 20px 0;
+            background: rgba(17, 17, 17, 0.8);
             backdrop-filter: blur(10px);
-            border-bottom: 2px solid var(--drgb-purple);
-            padding: 16px 24px;
-            position: sticky; top: 0; z-index: 1000;
+            z-index: 999;
+            transition: 0.3s;
         }
+        .navbar.sticky { padding: 10px 0; background: rgba(0, 0, 0, 0.9); }
+        .max-width { max-width: 1300px; margin: auto; padding: 0 80px; }
+        .navbar .logo a { color: white; font-size: 35px; font-weight: 600; }
+        .navbar .logo a span { color: var(--primary); }
+        .navbar .menu li { list-style: none; display: inline-block; margin: 0 20px; }
+        .navbar .menu li a { color: white; font-size: 18px; font-weight: 500; transition: 0.3s; }
+        .navbar .menu li a:hover { color: var(--primary); }
+        .menu-btn { color: white; font-size: 23px; cursor: pointer; display: none; }
 
-        .header-container {
-            max-width: 1280px; margin: 0 auto;
-            display: flex; justify-content: space-between; align-items: center;
+        /* Home */
+        .home { min-height: 100vh; display: flex; align-items: center; }
+        .home .home-content .text-1 { font-size: 27px; }
+        .home .home-content .text-2 { font-size: 75px; font-weight: 600; margin: 10px 0; }
+        .home .home-content .text-3 { font-size: 40px; margin: 5px 0; }
+        .home .home-content .text-3 span { color: var(--primary); font-weight: 500; }
+
+        /* Dropdown */
+        .dropdown { position: relative; display: inline-block; margin-top: 30px; }
+        .dropbtn {
+            background: var(--primary);
+            color: white;
+            padding: 16px 40px;
+            font-size: 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
         }
-
-        .logo {
-            font-family: 'Orbitron', sans-serif; font-size: 28px; font-weight: 900;
-            color: var(--drgb-cyan); text-shadow: 0 0 10px var(--drgb-cyan);
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background: white;
+            min-width: 200px;
+            box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 6px;
+            overflow: hidden;
         }
-
-        .logo span {
-            background: linear-gradient(45deg, var(--drgb-purple), var(--drgb-cyan));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        .dropdown-content a {
+            color: var(--dark);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: 0.3s;
         }
+        .dropdown-content a:hover { background: var(--primary); color: white; }
+        .dropdown:hover .dropdown-content { display: block; }
+        .dropdown:hover .dropbtn { background: transparent; color: var(--primary); border: 2px solid var(--primary); }
 
-        .user-info {
-            display: flex; align-items: center; gap: 12px; font-size: 15px;
-        }
-
-        .user-avatar {
-            width: 36px; height: 36px; border-radius: 50%;
-            background: var(--drgb-purple); display: flex; align-items: center;
-            justify-content: center; font-weight: bold; color: white;
-        }
-
-        .logout-btn {
-            background: transparent; border: 1px solid var(--error);
-            color: var(--error); padding: 6px 12px; border-radius: 6px;
-            cursor: pointer; font-size: 13px;
-        }
-
-        .admin-btn {
-            background: var(--admin-red); color: white; padding: 6px 12px;
-            border-radius: 6px; cursor: pointer; font-size: 13px; display: none;
-        }
-
-        .auth-container {
-            min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px;
-        }
-
-        .auth-card {
-            background: var(--drgb-gray); border: 1px solid var(--drgb-purple);
-            border-radius: 16px; max-width: 420px; width: 100%; padding: 40px;
-            box-shadow: 0 0 30px rgba(139, 0, 255, 0.3);
-        }
-
-        .auth-title {
-            font-family: 'Orbitron', sans-serif; font-size: 32px; text-align: center;
-            margin-bottom: 30px; background: linear-gradient(45deg, var(--drgb-cyan), var(--drgb-purple));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        }
-
-        input, select {
-            width: 100%; padding: 12px 16px; background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(139,0,255,0.3); border-radius: 8px; color: white;
-            font-size: 16px; margin-bottom: 15px;
-        }
-
-        input:focus { outline: none; border-color: var(--drgb-cyan); box-shadow: 0 0 15px rgba(0,255,255,0.3); }
-
-        .btn-auth {
-            width: 100%; padding: 14px; font-size: 18px; font-weight: bold;
-            background: linear-gradient(45deg, var(--drgb-purple), var(--drgb-cyan));
-            color: white; border: none; border-radius: 8px; cursor: pointer;
-        }
-
-        .switch-auth {
-            text-align: center; margin-top: 20px; font-size: 14px; color: #999;
-        }
-
-        .switch-auth a { color: var(--drgb-cyan); font-weight: bold; text-decoration: none; }
-
-        .dashboard { display: none; padding: 40px 20px; }
-
-        .balance-card {
-            background: linear-gradient(135deg, var(--drgb-purple), var(--drgb-cyan));
-            border-radius: 16px; padding: 30px; text-align: center; max-width: 500px;
-            margin: 0 auto 40px; box-shadow: 0 0 30px rgba(139, 0, 255, 0.5);
-        }
-
-        .balance-amount {
-            font-family: 'Orbitron', sans-serif; font-size: 48px; font-weight: 900; color: white;
-        }
-
-        .actions {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px; max-width: 1000px; margin: 0 auto 40px;
-        }
-
-        .action-card {
-            background: var(--drgb-gray); border: 1px solid var(--drgb-purple);
-            border-radius: 12px; padding: 25px; text-align: center; cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .action-card:hover {
-            transform: translateY(-8px); box-shadow: 0 0 25px rgba(139, 0, 255, 0.4);
-            border-color: var(--drgb-cyan);
-        }
-
-        .action-icon { font-size: 36px; margin-bottom: 15px; }
-
-        .transactions {
-            max-width: 900px; margin: 0 auto;
-        }
-
-        .transaction {
-            background: var(--drgb-gray); border-left: 4px solid var(--drgb-cyan);
-            padding: 15px; border-radius: 8px; margin-bottom: 12px;
-            display: flex; justify-content: space-between; align-items: center;
-            font-size: 15px;
-        }
-
-        .transaction.sent { border-left-color: var(--error); }
-
-        .modal {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); z-index: 2000;
-            align-items: center; justify-content: center; padding: 20px;
-        }
-
-        .modal-content {
-            background: var(--drgb-gray); border: 1px solid var(--drgb-purple);
-            border-radius: 16px; max-width: 500px; width: 100%; padding: 30px;
+        /* Features */
+        .features, .clients, .stats, .contributors { padding: 100px 0; }
+        .title {
+            text-align:  center;
+            font-size: 40px;
+            font-weight: 600;
+            margin-bottom: 60px;
             position: relative;
         }
-
-        .close-modal {
-            position: absolute; top: 15px; right: 20px; font-size: 24px;
-            cursor: pointer; color: #999;
+        .title::before {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            width: 180px;
+            height: 3px;
+            background: var(--primary);
+            transform: translateX(-50%);
         }
-
-        .admin-panel { display: none; padding: 40px 20px; }
-
-        .users-table {
-            max-width: 1000px; margin: 0 auto; background: var(--drgb-gray);
-            border: 1px solid var(--drgb-purple); border-radius: 12px; overflow: hidden;
+        .features .features-content { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; }
+        .features .card {
+            background: rgba(255,255,255,0.05);
+            width: 300px;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            transition: 0.3s;
+            border: 1px solid rgba(220,20,60,0.2);
         }
+        .features .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(220,20,60,0.2);
+        }
+        .features .card i { font-size: 50px; color: var(--primary); margin-bottom: 20px; }
+        .features .card .text { font-size: 22px; font-weight: 600; margin-bottom: 15px; }
 
-        table { width: 100%; border-collapse: collapse; }
-        th { background: rgba(139,0,255,0.2); padding: 15px; text-align: left; color: var(--drgb-cyan); }
-        td { padding: 12px 15px; border-top: 1px solid rgba(139,0,255,0.1); }
-        .hash { font-family: monospace; font-size: 12px; color: #aaa; word-break: break-all; }
+        /* Clients */
+        .client { background: rgba(255,255,255,0.03); padding: 25px; border-radius: 10px; margin: 20px 0; border-left: 4px solid var(--primary); }
+        .client h3 { color: var(--primary); }
+        .client ul { margin: 15px 0; padding-left: 20px; }
+        .client a { color: #4CAF50; text-decoration: underline; }
 
-        footer { text-align: center; padding: 30px; color: #555; font-size: 13px; margin-top: 60px; }
+        /* Stats & Contributors */
+        .stats .stats-content, .contributors .carousel { display: flex; justify-content: center; flex-wrap: wrap; gap: 30px; }
+        .stats .card, .contributors .cardd {
+            background: rgba(255,255,255,0.05);
+            width: 250px;
+            padding: 30px;
+            text-align: center;
+            border-radius: 10px;
+            border: 1px solid rgba(220,20,60,0.2);
+        }
+        .stats .card i { font-size: 40px; color: var(--primary); margin-bottom: 15px; }
+
+        /* Footer */
+        footer {
+            background: #000;
+            padding: 20px 0;
+            text-align: center;
+            font-size: 14px;
+        }
+        footer a { color: var(--primary); text-decoration: none; }
+
+        /* Responsive */
+        @media (max-width: 991px) {
+            .max-width { padding: 0 50px; }
+            .menu-btn { display: block; z-index: 999; }
+            .navbar .menu { position: fixed; height: 100vh; width: 100%; left: -100%; top: 0; background: #111; text-align: center; padding-top: 80px; transition: 0.3s; }
+            .navbar .menu.active { left: 0; }
+            .navbar .menu li { display: block; margin: 30px 0; }
+        }
     </style>
 </head>
 <body>
 
-    <canvas id="particles"></canvas>
+    <!-- Particles Background -->
+    <div id="particles-js"></div>
 
-    <!-- Auth -->
-    <div id="auth-container" class="auth-container">
-        <div id="login-card" class="auth-card">
-            <h2 class="auth-title">INICIAR SESIÓN</h2>
-            <input type="text" id="login-user" placeholder="Usuario" />
-            <input type="password" id="login-pass" placeholder="Contraseña" />
-            <button class="btn-auth" onclick="login()">ACCEDER</button>
-            <div class="switch-auth">
-                ¿Nuevo? <a href="#" onclick="showRegister()">Regístrate</a>
-            </div>
+    <!-- Scroll to Top -->
+    <div class="scroll-up-btn"><i class="fas fa-angle-up"></i></div>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="max-width">
+            <div class="logo"><a href="#home">DRGB<span>Hacks</span></a></div>
+            <ul class="menu">
+                <li><a href="#home" class="menu-btn">Inicio</a></li>
+                <li><a href="#features" class="menu-btn">Hacks</a></li>
+                <li><a href="#clients" class="menu-btn">Clientes</a></li>
+                <li><a href="#stats" class="menu-btn">Stats</a></li>
+                <li><a href="#contributors" class="menu-btn">Equipo</a></li>
+                <li><a href="https://discord.gg/drgb" class="menu-btn">Discord</a></li>
+            </ul>
+            <div class="menu-btn"><i class="fas fa-bars"></i></div>
         </div>
+    </nav>
 
-        <div id="register-card" class="auth-card" style="display:none;">
-            <h2 class="auth-title">REGISTRO</h2>
-            <input type="text" id="reg-user" placeholder="Usuario" />
-            <input type="password" id="reg-pass" placeholder="Contraseña (mín. 6)" />
-            <button class="btn-auth" onclick="register()">CREAR CUENTA</button>
-            <div class="switch-auth">
-                ¿Ya tienes cuenta? <a href="#" onclick="showLogin()">Inicia sesión</a>
+    <!-- Home -->
+    <section class="home" id="home">
+        <div class="max-width">
+            <div class="home-content">
+                <div class="text-1">Hola, somos</div>
+                <div class="text-2">DRGB Clan</div>
+                <div class="text-3">Y somos <span class="typing"></span></div>
             </div>
-        </div>
-    </div>
-
-    <!-- Dashboard -->
-    <div id="dashboard" class="dashboard">
-        <header>
-            <div class="header-container">
-                <div class="logo"><span>DRGB</span> Pay</div>
-                <div class="user-info">
-                    <div class="user-avatar" id="user-avatar">U</div>
-                    <span id="user-name">Cargando...</span>
-                    <button class="admin-btn" id="admin-btn" onclick="showAdmin()">ADMIN</button>
-                    <button class="logout-btn" onclick="logout()">Salir</button>
+            <div class="dropdown">
+                <button class="dropbtn">Únete Aquí</button>
+                <div class="dropdown-content">
+                    <a href="https://discord.gg/drgb">INVITA AL CLAN</a>
+                    <a href="#clients">DESCARGA HACKS</a>
+                    <a href="#features">TUTORIALES</a>
+                    <a href="https://github.com">CONFIGS GITHUB</a>
                 </div>
             </div>
-        </header>
-
-        <div class="balance-card">
-            <div>SALDO</div>
-            <div class="balance-amount" id="balance">$0.00</div>
         </div>
+    </section>
 
-        <div class="actions">
-            <div class="action-card" onclick="openModal('send')">
-                <div class="action-icon">Up Arrow</div>
-                <div>Enviar DRGB</div>
+    <!-- Features -->
+    <section class="features" id="features">
+        <div class="max-width">
+            <h1 class="title">Nuestros Hacks</h1>
+            <div class="features-content">
+                <div class="card" data-aos="fade-up">
+                    <div class="box">
+                        <i class="fas fa-crosshairs"></i>
+                        <div class="text">Combate</div>
+                        <p>Killaura, AutoCrystal, Criticals, Velocity. Domina PvP en 2b2t y Crystal.</p>
+                    </div>
+                </div>
+                <div class="card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="box">
+                        <i class="fas fa-running"></i>
+                        <div class="text">Movimiento</div>
+                        <p>Fly, Speed, Jesus, Scaffold. Explora sin límites en 1.21.</p>
+                    </div>
+                </div>
+                <div class="card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="box">
+                        <i class="fas fa-eye"></i>
+                        <div class="text">Visuales</div>
+                        <p>ESP, X-Ray, Fullbright, Trajectories. Ve todo, siempre.</p>
+                    </div>
+                </div>
+                <div class="card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="box">
+                        <i class="fas fa-tools"></i>
+                        <div class="text">Utilidad</div>
+                        <p>Baritone, AutoArmor, Dupe, QR Scanner. Automatiza todo.</p>
+                    </div>
+                </div>
+                <div class="card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="box">
+                        <i class="fas fa-bomb"></i>
+                        <div class="text">Grief</div>
+                        <p>TNT Dupe, Bedrock Breaker, Chunk Ban. Destruye bases.</p>
+                    </div>
+                </div>
+                <div class="card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="box">
+                        <i class="fas fa-gamepad"></i>
+                        <div class="text">Diversión</div>
+                        <p>Memes, Fake Profiles, Jokes, Parkour Hacks. Juega sin estrés.</p>
+                    </div>
+                </div>
             </div>
-            <div class="action-card" onclick="openModal('request')">
-                <div class="action-icon">Down Arrow</div>
-                <div>Solicitar</div>
+        </div>
+    </section>
+
+    <!-- Clients -->
+    <section class="clients" id="clients">
+        <div class="max-width">
+            <h1 class="title">Clientes para 1.21 - 1.21.10</h1>
+            <p style="text-align:center; margin-bottom:40px; color:#aaa;">
+                Riesgo en servidores protegidos (Hypixel, Mineplex): 70-90% detección. Usa alts + VPN.<br>
+                En anarchy: casi 0% riesgo. Enseñamos bypass en Discord.
+            </p>
+
+            <div class="client" data-aos="fade-right">
+                <h3>Meteor Client (Gratis)</h3>
+                <p><strong>Versión:</strong> 0.5.6 (Fabric/Quilt) | <strong>Addons:</strong> Rejects, TrollPlus, Baritone+</p>
+                <p><strong>Riesgo:</strong> Alto en protegidos | <strong>Página:</strong> <a href="https://meteorclient.com">meteorclient.com</a> | <strong>Discord:</strong> <a href="https://discord.gg/meteor">discord.gg/meteor</a></p>
+            </div>
+
+            <div class="client" data-aos="fade-left">
+                <h3>Wurst Client (Gratis)</h3>
+                <p><strong>Versión:</strong> 7.38.1 (Fabric) | <strong>Addons:</strong> ClickGUI +300 hacks</p>
+                <p><strong>Riesgo:</strong> Medio | <strong>Página:</strong> <a href="https://wurstclient.net">wurstclient.net</a> | <strong>Discord:</strong> <a href="https://discord.gg/wurst">discord.gg/wurst</a></p>
+            </div>
+
+            <div class="client" data-aos="fade-right">
+                <h3>Aristois (Premium $20)</h3>
+                <p><strong>Versión:</strong> 2.8.0 (Forge/Fabric) | <strong>Addons:</strong> Bypasses Hypixel, AutoCrystal Pro</p>
+                <p><strong>Riesgo:</strong> Bajo-Medio | <strong>Página:</strong> <a href="https://aristois.net">aristois.net</a> | <strong>Discord:</strong> <a href="https://discord.gg/aristois">discord.gg/aristois</a></p>
+            </div>
+
+            <div class="client" data-aos="fade-left">
+                <h3>LiquidBounce (Gratis)</h3>
+                <p><strong>Versión:</strong> b72 (Fabric) | <strong>Addons:</strong> Lua Scripts, BouncePlus</p>
+                <p><strong>Riesgo:</strong> Alto | <strong>Página:</strong> <a href="https://liquidbounce.net">liquidbounce.net</a> | <strong>Discord:</strong> <a href="https://discord.gg/liquidbounce">discord.gg/liquidbounce</a></p>
+            </div>
+
+            <div class="client" data-aos="fade-right">
+                <h3>Future Client (Premium $25)</h3>
+                <p><strong>Versión:</strong> 2.0 (Fabric) | <strong>Addons:</strong> Vault Solver, AI Aimbot</p>
+                <p><strong>Riesgo:</strong> Muy Bajo | <strong>Página:</strong> <a href="https://futureclient.net">futureclient.net</a> | <strong>Discord:</strong> <a href="https://discord.gg/future">discord.gg/future</a></p>
+            </div>
+
+            <div class="client" data-aos="fade-left">
+                <h3>Impact Client (Híbrido)</h3>
+                <p><strong>Versión:</strong> 5.2 (Fabric) | <strong>Addons:</strong> Impact+, Alt Manager</p>
+                <p><strong>Riesgo:</strong> Medio | <strong>Página:</strong> <a href="https://impactclient.net">impactclient.net</a> | <strong>Discord:</strong> <a href="https://discord.gg/impact">discord.gg/impact</a></p>
             </div>
         </div>
+    </section>
 
-        <div class="transactions">
-            <h3 style="color:var(--drgb-cyan); margin-bottom:20px; text-align:center;">TRANSACCIONES</h3>
-            <div id="transaction-list"></div>
+    <!-- Stats -->
+    <section class="stats" id="stats">
+        <div class="max-width">
+            <h2 class="title">Estadísticas del Clan</h2>
+            <div class="stats-content">
+                <div class="card"><div class="box"><i class="fas fa-users"></i><div class="text">Miembros</div><p>300+</p></div></div>
+                <div class="card"><div class="box"><i class="fas fa-skull"></i><div class="text">Raids</div><p>500+</p></div></div>
+                <div class="card"><div class="box"><i class="fas fa-shield-alt"></i><div class="text">Bans Evitados</div><p>2K+</p></div></div>
+                <div class="card"><div class="box"><i class="fas fa-server"></i><div class="text">Bases</div><p>150+</p></div></div>
+                <div class="card"><div class="box"><i class="fas fa-blog"></i><div class="text">Blog Hits</div><p>20M+</p></div></div>
+                <div class="card"><div class="box"><i class="fas fa-discord"></i><div class="text">Discord</div><p>15K+</p></div></div>
+            </div>
         </div>
+    </section>
 
-        <footer>DRGB Pay | Economía privada del clan | Solo para miembros</footer>
-    </div>
-
-    <!-- Admin Panel -->
-    <div id="admin-panel" class="admin-panel">
-        <button class="logout-btn" style="position:fixed; top:20px; right:20px;" onclick="showDashboard()">VOLVER</button>
-        <h1 style="text-align:center; color:var(--drgb-cyan); margin-bottom:30px;">ADMIN PANEL - ELPEPEXD2371</h1>
-        <div class="users-table">
-            <table>
-                <thead>
-                    <tr><th>Usuario</th><th>Registrado</th><th>Contraseña (SHA-256)</th></tr>
-                </thead>
-                <tbody id="admin-users"></tbody>
-            </table>
+    <!-- Contributors -->
+    <section class="contributors" id="contributors">
+        <div class="max-width">
+            <h2 class="title">Nuestro Equipo</h2>
+            <div class="carousel owl-carousel">
+                <div class="cardd"><div class="boxx"><img src="https://i.imgur.com/placeholder.png" alt=""><div class="text">PixelGriefer42</div><p><button class="badges helper">Meteor Master</button></p></div></div>
+                <div class="cardd"><div class="boxx"><img src="https://i.imgur.com/placeholder.png" alt=""><div class="text">AnonReject</div><p><button class="badges helper">Bypass God</button></p></div></div>
+                <div class="cardd"><div class="boxx"><img src="https://i.imgur.com/placeholder.png" alt=""><div class="text">DRGB_Founder</div><p><button class="badges owner">Fundador</button></p></div></div>
+            </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Modal -->
-    <div id="modal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeModal()">×</span>
-            <div id="modal-body"></div>
-        </div>
-    </div>
+    <!-- Footer -->
+    <footer>
+        <span>DRGB Clan | <a href="#">Política de Privacidad</a> | <a href="https://discord.gg/drgb">Discord</a> | <a href="#">Donar</a></span>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 
     <script>
-        // SHA-256
-        async function sha256(str) {
-            const encoder = new TextEncoder();
-            const data = encoder.encode(str);
-            const hash = await crypto.subtle.digest('SHA-256', data);
-            return Array.from(new Uint8Array(hash))
-                .map(b => b.toString(16).padStart(2, '0'))
-                .join('');
-        }
+        // Typed.js
+        new Typed('.typing', {
+            strings: ['el clan más inclusivo', 'donde nadie es rechazado', 'hacks para 1.21', 'anarchy & crystal pvp'],
+            typeSpeed: 100,
+            backSpeed: 60,
+            loop: true
+        });
 
-        // INICIALIZAR USUARIOS (ADMIN FIJO)
-        let users = JSON.parse(localStorage.getItem('drgb_users')) || {};
-        if (!users['ElpepexD2371']) {
-            (async () => {
-                const hash = await sha256('juan2010');
-                users['ElpepexD2371'] = {
-                    passHash: hash,
-                    balance: 999999,
-                    registered: new Date().toLocaleString(),
-                    transactions: []
-                };
-                localStorage.setItem('drgb_users', JSON.stringify(users));
-            })();
-        }
-
-        let currentUser = null;
-
-        // Auth
-        function showLogin() {
-            document.getElementById('login-card').style.display = 'block';
-            document.getElementById('register-card').style.display = 'none';
-        }
-
-        function showRegister() {
-            document.getElementById('login-card').style.display = 'none';
-            document.getElementById('register-card').style.display = 'block';
-        }
-
-        async function register() {
-            const user = document.getElementById('reg-user').value.trim();
-            const pass = document.getElementById('reg-pass').value;
-
-            if (!user || pass.length < 6) return alert('Usuario y contraseña (mín. 6) requeridos.');
-            if (users[user]) return alert('Usuario ya existe.');
-
-            const passHash = await sha256(pass);
-            users[user] = {
-                passHash,
-                balance: 100,
-                registered: new Date().toLocaleString(),
-                transactions: []
-            };
-
-            localStorage.setItem('drgb_users', JSON.stringify(users));
-            alert('¡Cuenta creada! Saldo inicial: $100');
-            showLogin();
-        }
-
-        async function login() {
-            const user = document.getElementById('login-user').value.trim();
-            const pass = document.getElementById('login-pass').value;
-            const data = users[user];
-
-            if (!data) return alert('Usuario no encontrado.');
-            const inputHash = await sha256(pass);
-            if (inputHash !== data.passHash) return alert('Contraseña incorrecta.');
-
-            currentUser = user;
-            localStorage.setItem('drgb_current', user);
-            loadDashboard();
-        }
-
-        function logout() {
-            currentUser = null;
-            localStorage.removeItem('drgb_current');
-            document.getElementById('auth-container').style.display = 'flex';
-            document.getElementById('dashboard').style.display = 'none';
-            document.getElementById('admin-panel').style.display = 'none';
-        }
-
-        function loadDashboard() {
-            document.getElementById('auth-container').style.display = 'none';
-            document.getElementById('dashboard').style.display = 'block';
-
-            const data = users[currentUser];
-            document.getElementById('user-name').textContent = currentUser;
-            document.getElementById('user-avatar').textContent = currentUser[0].toUpperCase();
-            document.getElementById('balance').textContent = `$${data.balance.toFixed(2)}`;
-            document.getElementById('admin-btn').style.display = currentUser === 'ElpepexD2371' ? 'block' : 'none';
-
-            renderTransactions();
-        }
-
-        function showAdmin() {
-            document.getElementById('dashboard').style.display = 'none';
-            document.getElementById('admin-panel').style.display = 'block';
-            renderAdmin();
-        }
-
-        function showDashboard() {
-            document.getElementById('admin-panel').style.display = 'none';
-            document.getElementById('dashboard').style.display = 'block';
-        }
-
-        function renderAdmin() {
-            const tbody = document.getElementById('admin-users');
-            tbody.innerHTML = '';
-            for (const [user, data] of Object.entries(users)) {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td><strong>${user}</strong></td>
-                    <td>${data.registered}</td>
-                    <td class="hash">${data.passHash}</td>
-                `;
-                tbody.appendChild(row);
+        // Particles.js
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80 },
+                color: { value: '#dc143c' },
+                shape: { type: 'circle' },
+                opacity: { value: 0.5, random: true },
+                size: { value: 3, random: true },
+                line_linked: { enable: true, distance: 150, color: '#dc143c', opacity: 0.4, width: 1 },
+                move: { enable: true, speed: 2 }
+            },
+            interactivity: {
+                events: { onhover: { enable: true, mode: 'repulse' } }
             }
-        }
+        });
 
-        // Transacciones
-        function openModal(type) {
-            const modal = document.getElementById('modal');
-            const body = document.getElementById('modal-body');
-            modal.style.display = 'flex';
+        // AOS
+        AOS.init({ duration: 1000 });
 
-            if (type === 'send') {
-                body.innerHTML = `
-                    <h3 style="color:var(--drgb-cyan);">Enviar DRGB</h3>
-                    <input type="text" id="send-to" placeholder="Usuario destino" />
-                    <input type="number" id="send-amount" placeholder="Cantidad" step="0.01" />
-                    <button class="btn-auth" style="margin-top:10px;" onclick="sendMoney()">Enviar</button>
-                `;
-            } else if (type === 'request') {
-                body.innerHTML = `
-                    <h3 style="color:var(--drgb-cyan);">Solicitar DRGB</h3>
-                    <p>Comparte este enlace:</p>
-                    <input type="text" value="https://drgb.gg/pay?to=${currentUser}" readonly style="text-align:center;" />
-                    <button class="btn-auth" onclick="navigator.clipboard.writeText('https://drgb.gg/pay?to=${currentUser}')">Copiar</button>
-                `;
-            }
-        }
+        // Navbar & Scroll
+        $(window).scroll(function(){
+            if(this.scrollY > 20) $('.navbar').addClass("sticky");
+            else $('.navbar').removeClass("sticky");
+            if(this.scrollY > 500) $('.scroll-up-btn').addClass("show");
+            else $('.scroll-up-btn').removeClass("show");
+        });
+        $('.scroll-up-btn').click(() => $('html').animate({scrollTop: 0}));
+        $('.menu-btn').click(() => $('.navbar .menu').toggleClass("active"));
 
-        function closeModal() { document.getElementById('modal').style.display = 'none'; }
-
-        function sendMoney() {
-            const to = document.getElementById('send-to').value.trim();
-            const amount = parseFloat(document.getElementById('send-amount').value);
-
-            if (!users[to]) return alert('Usuario no existe.');
-            if (amount <= 0 || users[currentUser].balance < amount) return alert('Fondos insuficientes.');
-
-            users[currentUser].balance -= amount;
-            users[to].balance += amount;
-
-            const date = new Date().toLocaleString();
-            users[currentUser].transactions.unshift({ type: 'sent', to, amount, date });
-            users[to].transactions.unshift({ type: 'received', from: currentUser, amount, date });
-
-            localStorage.setItem('drgb_users', JSON.stringify(users));
-            loadDashboard();
-            closeModal();
-            alert(`¡$${amount} enviados a ${to}!`);
-        }
-
-        function renderTransactions() {
-            const list = document.getElementById('transaction-list');
-            const txs = users[currentUser].transactions.slice(0, 20);
-            list.innerHTML = txs.length ? txs.map(tx => {
-                const sign = tx.type === 'sent' ? '-' : '+';
-                const color = tx.type === 'sent' ? 'var(--error)' : 'var(--success)';
-                const icon = tx.type === 'sent' ? 'Up Arrow' : 'Down Arrow';
-                const other = tx.type === 'sent' ? tx.to : tx.from;
-                return `<div class="transaction ${tx.type}">
-                    <div><strong>${icon} ${other}</strong><br><small>${tx.date}</small></div>
-                    <div style="color:${color}">${sign}$${tx.amount.toFixed(2)}</div>
-                </div>`;
-            }).join('') : '<p style="text-align:center; color:#666;">Sin transacciones.</p>';
-        }
-
-        // Particles
-        window.onload = () => {
-            const saved = localStorage.getItem('drgb_current');
-            if (saved && users[saved]) { currentUser = saved; loadDashboard(); }
-
-            const canvas = document.getElementById('particles');
-            const ctx = canvas.getContext('2d');
-            canvas.width = window.innerWidth; canvas.height = window.innerHeight;
-            const particles = Array.from({length: 50}, () => ({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                radius: Math.random() * 2 + 1,
-                speed: Math.random() * 1 + 0.5,
-                color: Math.random() > 0.5 ? 'rgba(139,0,255,0.5)' : 'rgba(0,255,255,0.5)'
-            }));
-
-            function animate() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                particles.forEach(p => {
-                    ctx.beginPath(); ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-                    ctx.fillStyle = p.color; ctx.fill();
-                    p.y -= p.speed; if (p.y < 0) p.y = canvas.height;
-                });
-                requestAnimationFrame(animate);
-            }
-            animate();
-        };
-
-        // 100 IDEAS MASIVAS (en consola)
-        console.log("%c100 IDEAS MASIVAS PARA DRGB", "color: #8B00FF; font-size: 18px; font-weight: bold;");
-        console.log("%c1. Tratos secretos entre miembros\n2. Pago por favores\n3. Deudas con intereses\n4. Regalos anónimos\n5. Apuestas privadas...", "color: #00FFFF;");
+        // Owl Carousel
+        $('.carousel').owlCarousel({
+            margin: 20,
+            loop: true,
+            autoplay: true,
+            autoplayTimeout: 3000,
+            responsive: { 0: { items: 1 }, 600: { items: 2 }, 1000: { items: 3 } }
+        });
     </script>
 </body>
 </html>
+
 
